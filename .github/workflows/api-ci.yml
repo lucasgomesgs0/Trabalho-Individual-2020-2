@@ -1,0 +1,47 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: API CI
+
+on:
+  push:
+    branches: [ master, develop ]
+    paths:
+      - api/**
+  pull_request:
+    branches: [ master, develop ]
+    paths:
+      - api/**
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build db and api containers
+      run: docker-compose up -d --build db api
+      
+    - name: Run tests
+      run: | 
+        docker-compose run api coverage erase
+        docker-compose run api coverage run --source="." manage.py test
+       
+    - name: Run stylesheet analysis
+      uses: ricardochaves/python-lint@v1.4.0
+      with:
+        python-root-list: "."
+        use-pylint: false
+        use-pycodestyle: false
+        use-flake8: true
+        use-black: false
+        use-mypy: false
+        use-isort: false
+        extra-pylint-options: ""
+        extra-pycodestyle-options: ""
+        extra-flake8-options: "--max-complexity=10 --max-line-length=127"
+        extra-black-options: ""
+        extra-mypy-options: ""
+        extra-isort-options: ""
+
+    - name: Run tests coverage analysis
+      run: docker-compose run api coverage report --fail-under=85
