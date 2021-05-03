@@ -45,6 +45,7 @@ jobs:
       run: docker-compose run api coverage report --fail-under=85
       
   deploy:
+    if: github.ref == 'refs/heads/master'
     needs: [build_and_test]
     runs-on: ubuntu-latest
     steps:
