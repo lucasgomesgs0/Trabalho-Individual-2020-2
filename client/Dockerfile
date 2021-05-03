@@ -9,4 +9,4 @@ RUN yarn install
 
 COPY . .
 
-EXPOSE 8080
+CMD quasar dev -p $PORT

@@ -22,7 +22,7 @@ module.exports = {
     '<rootDir>/src/**/*.jsx',
   ],
   // Needed in JS codebases too because of feature flags
-  coveragePathIgnorePatterns: ['/node_modules/', '.d.ts$'],
+  coveragePathIgnorePatterns: ['/node_modules/', '.d.ts$', '<rootDir>/src/services/'],
   coverageThreshold: {
     global: {
       branches: 85,
