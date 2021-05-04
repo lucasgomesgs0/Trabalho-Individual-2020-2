@@ -1,3 +1,5 @@
+![API CI Status](https://github.com/lucasgomesgs0/Trabalho-Individual-2020-2/actions/workflows/api-ci.yml/badge.svg) ![CLIENT CI Status](https://github.com/lucasgomesgs0/Trabalho-Individual-2020-2/actions/workflows/client-ci.yml/badge.svg) [![Maintainability](https://api.codeclimate.com/v1/badges/73b42c46ecc05dad88ea/maintainability)](https://codeclimate.com/github/lucasgomesgs0/Trabalho-Individual-2020-2/maintainability) [![codecov](https://codecov.io/gh/lucasgomesgs0/Trabalho-Individual-2020-2/branch/master/graph/badge.svg?token=VVGUUWPZIW)](https://codecov.io/gh/lucasgomesgs0/Trabalho-Individual-2020-2)
+
 # Trabalho Individual 2020.2
 
 
