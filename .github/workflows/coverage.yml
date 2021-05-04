@@ -1,0 +1,29 @@
+name: Coverage
+
+on:
+  workflow_run:
+    workflows: ["API CI", "CLIENT CI"]
+    types: [completed]
+    branches: [master]
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build project
+      run: docker-compose up -d --build
+    - name: Run api tests
+      run: | 
+        docker-compose run api coverage erase
+        docker-compose run api coverage run --source="." manage.py test
+        docker-compose run api coverage xml
+    - name: Run client tests
+      run: docker-compose run client quasar test --unit jest
+    - name: Upload api and client coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        directory: ${{github.workspace}}/**
+        fail_ci_if_error: true
+        verbose: true
